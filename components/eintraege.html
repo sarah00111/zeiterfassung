@@ -1,0 +1,86 @@
+<style>
+    .eintrag, #header {
+        height: 7vh;
+        padding: 10px;
+    }
+
+    .eintrag:nth-child(odd) {
+        background-color: aliceblue;
+    }
+</style>
+
+<div>
+    <div flex layout="column">
+
+        <div layout="row" layout-align="start center" id="header">
+            <div flex="25">Person</div>
+            <div flex="55">Tätigkeit</div>
+            <div flex="15">Dauer</div>
+            <md-button class="md-icon-button md-primary"
+                       ng-click="$ctrl.newTaetigkeit()"
+                       flex="5"
+                       ng-hide="!($ctrl.hideAddTaetigkeit)"
+            >
+                <md-icon md-font-icon="material-icons">add_circle</md-icon>
+            </md-button>
+        </div>
+
+        <form flex
+              layout="row"
+              layout-align="start center"
+              ng-hide="$ctrl.hideAddTaetigkeit"
+              name="$ctrl.formular"
+        >
+            <md-input-container flex="25">
+                <label>Person </label>
+                <input required
+                       minlength="3"
+                       name="person"
+                       ng-model="$ctrl.person">
+                <div ng-messages="$ctrl.formular.person.$error">
+                    <div ng-message="required">Sie müssen etwas angeben</div>
+                    <div ng-message="minlength">Sie müssen min 3 Zeichen eingeben</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container flex="65">
+                <label>Tätigkeit </label>
+                <input ng-model="$ctrl.taetigkeit"
+                       name="taetigkeit"
+                       required
+                       minlength="3">
+                <div ng-messages="$ctrl.formular.taetigkeit.$error">
+                    <div ng-message="required">Sie müssen etwas angeben</div>
+                    <div ng-message="minlength">Sie müssen min 3 Zeichen eingeben</div>
+                </div>
+            </md-input-container>
+
+            <md-button class="md-icon-button md-primary"
+                        flex="5"
+                       ng-click="$ctrl.stopEingabe()">
+                <md-icon md-font-icon="material-icons">delete</md-icon>
+            </md-button>
+
+            <md-button class="md-icon-button md-primary"
+                       flex="5"
+                       ng-disabled="$ctrl.formular.$invalid"
+                       ng-click="$ctrl.addTaetigkeit()">
+                <md-icon md-font-icon="material-icons">check_circle</md-icon>
+            </md-button>
+        </form>
+
+
+        <eintrag ng-repeat="e in $ctrl.allTaetigkeiten"
+                 eintrag-obj="e"
+                 button-ausg="$ctrl.delete(obj)"
+                 changed-state="$ctrl.speichern()"
+                 class="eintrag"></eintrag>
+    </div>
+    <hr>
+    <div layout="row" layout-align="space-around center">
+        <h3>Gesamtdauer</h3>
+        <h3>{{$ctrl.gesamtZeit() | date:'HH:mm:ss':'UTC'}}</h3>
+    </div>
+</div>
+
+

@@ -1,0 +1,26 @@
+<div layout="row" layout-align="start center">
+    <div flex="25">{{$ctrl.eintragObj.person}}</div>
+    <div flex="55">{{$ctrl.eintragObj.taetigkeit}}</div>
+    <div flex="10">{{$ctrl.eintragObj.dauer() | date:'HH:mm:ss':'UTC'}}</div>
+
+    <md-button class="md-icon-button"
+               ng-disabled="$ctrl.disabledDelete"
+               ng-click="$ctrl.delete()"
+               flex="5">
+        <md-icon md-font-icon="material-icons">delete</md-icon>
+    </md-button>
+
+    <md-button class="md-icon-button md-primary"
+               ng-click="$ctrl.startTaetigkeit()"
+               ng-hide="$ctrl.eintragObj.startTime"
+               flex="5">
+        <md-icon md-font-icon="material-icons">play_circle_filled</md-icon>
+    </md-button>
+
+    <md-button class="md-icon-button md-warn"
+               ng-click="$ctrl.stopTaetigkeit()"
+               ng-hide="!($ctrl.eintragObj.startTime)"
+               flex="5">
+        <md-icon md-font-icon="material-icons">pause_circle_filled</md-icon>
+    </md-button>
+</div>
